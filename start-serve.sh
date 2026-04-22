@@ -23,9 +23,9 @@ gunicorn app:app \
     --worker-class uvicorn.workers.UvicornWorker \
     --bind 127.0.0.1:5576 \
     --workers "$WORKERS" \
-    --max-requests 1000 \
-    --max-requests-jitter 50 \
+    --max-requests 200 \
+    --max-requests-jitter 30 \
     --timeout 60 \
-    --keep-alive 5 \
+    --keep-alive 3 \
     --access-logfile - \
     --error-logfile -
