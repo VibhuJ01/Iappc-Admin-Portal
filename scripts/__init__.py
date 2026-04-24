@@ -40,7 +40,7 @@ def create_app():
     ]
     if Credentials.environment != Environments.PRODUCTION:
         allowed_origins.extend(["http://localhost:3000"])
-    # app.add_middleware(OriginValidationMiddleware, allowed_origins=allowed_origins)
+    app.add_middleware(OriginValidationMiddleware, allowed_origins=allowed_origins)
 
     # CORS setup
     app.add_middleware(
