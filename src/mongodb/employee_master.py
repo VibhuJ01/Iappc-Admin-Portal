@@ -80,7 +80,7 @@ class EmployeeMaster:
     def fetch_all_employees(self) -> tuple[dict, int]:
 
         employees = self.collection.find(
-            {},
+            {"role": UserRoles.EMPLOYEE.value},
             {
                 "_id": 0,
                 "name": 1,
@@ -104,7 +104,9 @@ class EmployeeMaster:
                 "message": "You can't disable yourself.",
             }, HTTPStatus.FORBIDDEN
 
-        user_to_disable = self.collection.find_one({"email": disable_user_email.lower(), "is_disabled": False})
+        user_to_disable = self.collection.find_one(
+            {"email": disable_user_email.lower(), "role": UserRoles.EMPLOYEE.value, "is_disabled": False}
+        )
 
         if not user_to_disable:
             return {
@@ -132,7 +134,9 @@ class EmployeeMaster:
         }, HTTPStatus.OK
 
     def enable_employee(self, enable_user_email: str) -> tuple[dict, int]:
-        user_to_enable = self.collection.find_one({"email": enable_user_email.lower(), "is_disabled": True})
+        user_to_enable = self.collection.find_one(
+            {"email": enable_user_email.lower(), "role": UserRoles.EMPLOYEE.value, "is_disabled": True}
+        )
 
         if not user_to_enable:
             return {
