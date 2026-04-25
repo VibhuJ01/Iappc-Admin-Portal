@@ -223,11 +223,6 @@ def fetch_profile(email: str) -> dict[str, Any]:
         "created_at": user["created_at"].strftime("%d-%m-%Y"),
     }
 
-    company_admin_email = None
-    if user["role"] == UserRoles.EMPLOYEE:
-        company_admin_email = user["company_admin_email"]
-        profile["company_admin_email"] = company_admin_email
-
     return profile
 
 
